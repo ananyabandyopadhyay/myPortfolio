@@ -27,7 +27,12 @@ module.exports = {
       },
       colors: {
         'primary-blue': '#264858',
-        'primary-yellow': '#7b4b1c'
+        // 'primary-blue': '#ff0000',
+        'primary-yellow': '#7b4b1c',
+        'primary-gray': '#606060',
+        'secondary-yellow': '#ffa127',
+        'primary-bg-yellow': '#d7cfbc',
+
       },
       fontSize: {
         sm: '0.8rem',
@@ -37,6 +42,7 @@ module.exports = {
         '3xl': '1.953rem',
         '4xl': '2.441rem',
         '5xl': '3.052rem',
+        'lgBanner': '5rem',
         'large': '8rem'
       },
       animation: {

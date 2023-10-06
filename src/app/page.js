@@ -2,12 +2,20 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
+import { TfiLineDotted } from "react-icons/tfi";
+import { BsChevronDown } from "react-icons/bs";
+import { TbBrandNextjs, TbBrandReact, TbBrandHtml5, TbBrandTailwind, TbBrandBootstrap, TbDatabase, TbBrandJavascript } from "react-icons/tb";
+import { SiAntdesign } from "react-icons/si";
+import { AiOutlineCamera, AiOutlineLaptop, AiOutlineHtml5 } from "react-icons/ai";
+
+
+
 
 export default function Home() {
   const [professionData, setProfessionData] = useState("");
   const [professionStyle, setProfessionStyle] = useState();
   let i = 0;
-
+  
   useEffect(() => {
     setProfessionStyle("fadeIn 2s infinite")
     setProfessionData("Web developer")
@@ -19,18 +27,116 @@ export default function Home() {
     }, 2000);
 }, [i])
 
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <div class="bg-cover pl-20 grayscale hover:grayscale-0"
-      style={{backgroundImage: "url('/portfolioImage1.jpeg')", height: "100vh", width: "100%", backgroundRepeat: "no-repeat"}}
-      >
 
-        <div class="text-white text-large mt-52">
+      <div class="bg-cover w-[100vw] pl-[1rem] md:pl-[3rem] pt-[5rem] lg:pl-20 xl:pt-[16rem] xl:grayscale xl:hover:grayscale-0 xl:bg-cover xl:w-full xl:h-[100vh]"
+      style={{backgroundImage: "url('/portfolioImage1.jpeg')", backgroundRepeat: "no-repeat"}}
+      >
+        <div class="text-white mt-[3rem] text-4xl md:text-5xl md:mt-[6rem] lg:text-lgBanner lg:mt-[8rem] xl:text-large xl:mt-52">
           <div className="font-Montserrat">ANANYA</div>
           <div className="font-Montserrat">BANDYOPADHYAY</div>
         </div>
-        <div className="text-3xl font-ubuntu text-primary-yellow" style={{animation: professionStyle}}> {professionData} </div>
+        <div className="text-xl mb-[3rem] md:mb-[6rem] lg:text-3xl lg:mb-[8rem] xl:mb-52 font-ubuntu text-primary-yellow" style={{animation: professionStyle}}> {professionData} </div>
       </div>
+
+      <div className="w-[80%] py-[3rem] md:w-[60%] md:py-[6rem] lg:w-[50%] xl:w-[40%] mx-auto ">
+          <div className='text-center'>
+          MEET THE DEVELOPER
+          </div>
+          <div className='flex justify-center mb-[2rem]'>
+          <TfiLineDotted className='text-[3rem] mx-[1rem]'/><BsChevronDown className='mt-[1rem]'/><TfiLineDotted className='text-[3rem] mx-[1rem]'/>
+          </div>
+          Hi there, I'm Ananya. I'm a web developer who loves creating websites that work flawlessly. 
+          But that's not all I do! I'm also an aspiring artist, always trying out new ways to express myself, 
+          and a passionate photographer who captures the beauty of the world.
+          Crafting Code, Brushing Art, and Capturing Moments: A Developer's Journey Through Pixels and Pixels.
+      </div>
+
+      <div className="w-full bg-primary-bg-yellow text-primary-blue xl:grayscale xl:hover:grayscale-0">
+        <div className="w-[80%] mx-auto py-[3rem] md:py-[6rem]">
+          <div className='text-center'>
+          Technical Proficiency
+          </div>
+          <div className='flex justify-center mb-[2rem]'>
+          <TfiLineDotted className='text-[3rem] mx-[1rem]'/><BsChevronDown className='mt-[1rem]'/><TfiLineDotted className='text-[3rem] mx-[1rem]'/>
+          </div>
+
+          <div className='flex flex-wrap justify-between item-center'>
+
+            <div className="group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue">
+              <div className='p-[2rem] md:p-[1.5rem] lg:p-[3rem] rounded-full bg-white text-center w-[140px] h-[140px]  md:w-[130px] md:h-[130px] md:w-[130px] md:h-[130px] lg:w-[180px] lg:h-[180px] xl:w-[220px] xl:h-[220px] m-auto' 
+              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 90%, #a1bbc4 0)"}}>
+              <TbBrandHtml5 className={`text-[2rem] xl:text-[5rem] m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out  `}/>
+              <div>HTML</div><div>90%</div>
+              </div>
+              <div>
+              </div>
+            </div>
+
+
+            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
+              <div className='p-[2rem] md:p-[1.5rem] lg:p-[3rem] rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px] lg:w-[180px] lg:h-[180px] xl:w-[220px] xl:h-[220px] m-auto'
+              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 60%, #a1bbc4 0)"}}>
+              <TbBrandTailwind className='text-[2rem] xl:text-[5rem] m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
+              <div>Tailwind</div><div>60%</div>
+              </div>
+            </div>
+            
+            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
+              <div className='p-[2rem] md:p-[1.5rem] lg:p-[3rem]  rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px] lg:w-[180px] lg:h-[180px] xl:w-[220px] xl:h-[220px] m-auto'
+              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 80%, #a1bbc4 0)"}}>
+              <TbBrandBootstrap className='text-[2rem] xl:text-[5rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
+              <div>Bootstrap</div><div>80%</div>
+              </div>
+            </div>
+
+            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
+              <div className='p-[2rem] md:p-[1.5rem] lg:p-[3rem]  rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px] lg:w-[180px] lg:h-[180px] xl:w-[220px] xl:h-[220px] m-auto'
+              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 80%, #a1bbc4 0)"}}>
+              <SiAntdesign className='text-[2rem] xl:text-[5rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
+              <div>Ant D</div><div>80%</div>
+              </div>
+            </div>
+
+            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
+              <div className='p-[2rem] md:p-[1.5rem] lg:p-[3rem]  rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px] lg:w-[180px] lg:h-[180px] xl:w-[220px] xl:h-[220px] m-auto'
+              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 75%, #a1bbc4 0)"}}>
+              <TbBrandReact className='text-[2rem] xl:text-[5rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
+              <div>React</div><div>75%</div>
+              </div>
+            </div>
+
+            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
+              <div className='p-[2rem] md:p-[1.5rem] lg:p-[3rem]  rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px] lg:w-[180px] lg:h-[180px] xl:w-[220px] xl:h-[220px] m-auto'
+              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 70%, #a1bbc4 0)"}}>
+              <TbBrandNextjs className='text-[2rem] xl:text-[5rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
+              <div>Next.js</div><div>70%</div>
+              </div>
+            </div>
+
+            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
+              <div className='p-[2rem] md:p-[1.5rem] lg:p-[3rem]  rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px] lg:w-[180px] lg:h-[180px] xl:w-[220px] xl:h-[220px] m-auto'
+              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 80%, #a1bbc4 0)"}}>
+              <TbBrandJavascript className='text-[2rem] xl:text-[5rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
+              <div>Javascript</div><div>80%</div>
+              </div>
+            </div>
+
+            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
+              <div className='p-[2rem] md:p-[1.5rem] lg:p-[3rem]  rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px] lg:w-[180px] lg:h-[180px] xl:w-[220px] xl:h-[220px] m-auto'
+              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 50%, #a1bbc4 0)"}}>
+              <TbDatabase className='text-[2rem] xl:text-[5rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
+              <div>SQL</div><div>50%</div>
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+
     </main>
   )
 }
