@@ -27,6 +27,7 @@ module.exports = {
       },
       colors: {
         'primary-blue': '#264858',
+        'secondary-blue': '#245f71',
         // 'primary-blue': '#ff0000',
         'primary-yellow': '#7b4b1c',
         'primary-gray': '#606060',
