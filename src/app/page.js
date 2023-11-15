@@ -155,7 +155,7 @@ export default function Home() {
                 distinct web projects, each offering unique challenges and opportunities for growth. 
                 These experiences have not only honed my technical skills but also enriched my team-work abilities. 
                 I've expertise in front-end development, responsive design, and user experience optimization. 
-                These projects have encompassed e-commerce and healthcare industries.
+                These projects have encompassed e-commerce and healthcare industries
               </div>
             </div>
 
