@@ -1,4 +1,7 @@
 "use client"; 
+import "../app/styles/globals.css"
+
+
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
@@ -8,12 +11,15 @@ import { TbBrandNextjs, TbBrandReact, TbBrandHtml5, TbBrandTailwind, TbBrandBoot
 import { SiAntdesign } from "react-icons/si";
 import { AiOutlineCamera, AiOutlineLaptop, AiOutlineHtml5 } from "react-icons/ai";
 import ReactGA from "react-ga";
+import { useRouter } from "next/router";
 
 
-
-export default function Home() {
+export default function App() {
   const [professionData, setProfessionData] = useState("");
   const [professionStyle, setProfessionStyle] = useState();
+
+  const [initialized, setInitialized] = useState(false);
+  const router = useRouter();
   const [width, setWidth] = useState();
   let i = 0;
 
@@ -38,7 +44,24 @@ export default function Home() {
   }, [])
 
 
-  ReactGA.pageview(window.location.pathname + window.location.search);
+
+
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => {
+      // REACTGA
+      // Send pageview with a custom path
+      ReactGA.send({ hitType: "pageview", page: "/" });
+      console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`);
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, []);
 
 
 
