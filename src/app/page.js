@@ -17,7 +17,7 @@ export default function Home() {
   const [width, setWidth] = useState();
   let i = 0;
 
-  ReactGA.initialize('G-3JFX7LDGFD');
+  ReactGA.initialize('G-CJXWH6L4W9');
   
   useEffect(() => {
     setProfessionStyle("fadeIn 2s infinite")
