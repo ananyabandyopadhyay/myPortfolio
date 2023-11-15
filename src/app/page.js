@@ -38,6 +38,9 @@ export default function Home() {
   }, [])
 
 
+  ReactGA.pageview(window.location.pathname + window.location.search);
+
+
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
