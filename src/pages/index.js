@@ -39,6 +39,17 @@ export default function App() {
   useEffect(() => {
     if (typeof window !== 'undefined'){
       const windowSize = window.screen.width;
+      if(windowSize < 900){
+        ReactGA.event({
+          category: 'Mobile',
+          action: 'On mobile check'
+      });
+      } else {
+        ReactGA.event({
+          category: 'Web',
+          action: 'On web check'
+      });
+      }
       setWidth(windowSize)
     }
   }, [])
@@ -79,7 +90,7 @@ export default function App() {
       </div>
 
       <div className="w-[80%] md:w-[60%] py-[3rem] md:py-[6rem] lg:w-[50%] xl:w-[40%] mx-auto ">
-          <div className='text-center'>
+          <div className='text-center' >
           MEET THE DEVELOPER
           </div>
           <div className='flex justify-center mb-[2rem]'>
