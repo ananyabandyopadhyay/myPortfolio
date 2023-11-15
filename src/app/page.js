@@ -7,7 +7,7 @@ import { BsChevronDown } from "react-icons/bs";
 import { TbBrandNextjs, TbBrandReact, TbBrandHtml5, TbBrandTailwind, TbBrandBootstrap, TbDatabase, TbBrandJavascript } from "react-icons/tb";
 import { SiAntdesign } from "react-icons/si";
 import { AiOutlineCamera, AiOutlineLaptop, AiOutlineHtml5 } from "react-icons/ai";
-
+import ReactGA from "react-ga";
 
 
 
@@ -17,6 +17,7 @@ export default function Home() {
   const [width, setWidth] = useState();
   let i = 0;
 
+  ReactGA.initialize('G-3JFX7LDGFD');
   
   useEffect(() => {
     setProfessionStyle("fadeIn 2s infinite")
