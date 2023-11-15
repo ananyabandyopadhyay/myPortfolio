@@ -54,6 +54,14 @@ export default function App() {
     }
   }, [])
 
+  const checkReactGA = () => {
+    ReactGA.event({
+      category: 'Profile',
+      action: 'User checked my profle'
+  });
+  console.log("User checked my profle");
+  }
+
 
 
 
@@ -83,7 +91,7 @@ export default function App() {
       style={{backgroundImage: "url('/portfolioImage1.jpeg')", backgroundRepeat: "no-repeat"}}
       >
         <div className="text-white mt-[3rem] text-3xl md:text-5xl md:mt-[6rem] lg:text-lgBanner lg:mt-[8rem] xl:text-large  ">
-          <div className="font-Montserrat">ANANYA</div>
+          <div className="font-Montserrat" onClick={()=>checkReactGA()}>ANANYA</div>
           <div className="font-Montserrat">BANDYOPADHYAY</div>
         </div>
         <div className="text-xl mb-[3rem] md:mb-[6rem] lg:text-3xl lg:mb-[8rem] xl:mb-52 font-ubuntu text-primary-yellow" style={{animation: professionStyle}}> {professionData} </div>
