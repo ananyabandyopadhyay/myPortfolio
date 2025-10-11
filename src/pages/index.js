@@ -1,406 +1,447 @@
-"use client"; 
-import "../app/styles/globals.css"
-import { FaGithub } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { IoIosCall } from "react-icons/io";
-import { IoIosMail } from "react-icons/io";
+import React, { useState, useEffect } from "react";
+import "../app/styles/globals.css";
 
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Phone,
+  Download,
+  ExternalLink,
+  Code,
+  Briefcase,
+  GraduationCap,
+  Award,
+} from "lucide-react";
 
-import Image from 'next/image'
-import { useEffect, useState } from 'react';
-import { TfiLineDotted } from "react-icons/tfi";
-import { BsChevronDown } from "react-icons/bs";
-import { TbBrandNextjs, TbBrandReact, TbBrandHtml5, TbBrandTailwind, TbBrandBootstrap, TbDatabase, TbBrandJavascript } from "react-icons/tb";
-import { SiAntdesign } from "react-icons/si";
-import { AiOutlineCamera, AiOutlineLaptop, AiOutlineHtml5 } from "react-icons/ai";
-import ReactGA from "react-ga";
-import { useRouter } from "next/router";
-
-
-export default function App() {
-  const [professionData, setProfessionData] = useState("");
-  const [professionStyle, setProfessionStyle] = useState();
-
-  const [initialized, setInitialized] = useState(false);
-  const router = useRouter();
-  const [width, setWidth] = useState();
-  let i = 0;
-
-  ReactGA.initialize('G-CJXWH6L4W9');
-  
-  useEffect(() => {
-    setProfessionStyle("fadeIn 2s infinite")
-    setProfessionData("Web developer")
-    setInterval(() => {
-      if(i>2){ i = 0}
-      let professionalsArray = [ "Photographer", "Novice artist", "Web developer"];
-      setProfessionData(professionalsArray[i])
-      i++;
-    }, 2000);
-  }, [i])
+export default function Portfolio() {
+  const [activeSection, setActiveSection] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined'){
-      const windowSize = window.screen.width;
-      if(windowSize < 900){
-        ReactGA.event({
-          category: 'Mobile',
-          action: 'On mobile check'
-      });
-      } else {
-        ReactGA.event({
-          category: 'Web',
-          action: 'On web check'
-      });
-      }
-      setWidth(windowSize)
-    }
-  }, [])
-
-  const checkReactGA = () => {
-    ReactGA.event({
-      category: 'Profile',
-      action: 'User checked my profle'
-  });
-  console.log("User checked my profle");
-  }
-
-
-
-
-  useEffect(() => {
-    const handleRouteChange = (url, { shallow }) => {
-      // REACTGA
-      // Send pageview with a custom path
-      ReactGA.send({ hitType: "pageview", page: "/" });
-      console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
     };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    router.events.on("routeChangeComplete", handleRouteChange);
+  const roles = ["Full Stack Developer", "React Specialist", "Next.js Expert"];
+  const [currentRole, setCurrentRole] = useState(0);
 
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method:
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRole((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   const download = (url) => {
-    const a = document.createElement('a')
-    a.href = url
-    a.download = url.split('/').pop()
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-  }
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = url.split("/").pop();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
   const onButtonClick = () => {
-    const pdfUrl = "/Ananya_CV_2024.pdf";
+    const pdfUrl = "/AnanyaBandyopadhyayResume.pdf";
     const link = document.createElement("a");
     link.href = pdfUrl;
-    link.download = "Ananya_Bandyopadhyay_CV.pdf"; // specify the filename
+    link.download = "Ananya_Bandyopadhyay_Resume.pdf"; // specify the filename
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-};
+  };
 
+  const skills = {
+    frontend: [
+      { name: "React.js", level: 90 },
+      { name: "Next.js", level: 85 },
+      { name: "TypeScript", level: 80 },
+      { name: "JavaScript", level: 90 },
+      { name: "Tailwind CSS", level: 85 },
+      { name: "HTML5/CSS3", level: 95 },
+    ],
+    backend: [
+      { name: "Node.js", level: 80 },
+      { name: "Express.js", level: 75 },
+      { name: "GraphQL", level: 70 },
+      { name: "REST APIs", level: 85 },
+      { name: "MongoDB", level: 70 },
+      { name: "Firebase", level: 75 },
+    ],
+    tools: [
+      { name: "Git/GitHub", level: 90 },
+      { name: "Docker", level: 70 },
+      { name: "Jest", level: 75 },
+      { name: "CI/CD", level: 80 },
+      { name: "Vercel/Netlify", level: 85 },
+    ],
+  };
 
+  const projects = [
+    {
+      title: "Katalyst India",
+      period: "01/2025 - Present",
+      description:
+        "Empowerment platform for women's education and mentorship supporting underprivileged high-potential young women across India.",
+      highlights: [
+        "Developed scalable features using React.js",
+        "Implemented JWT authentication and role-based access",
+        "Increased user engagement through UI improvements",
+      ],
+      tags: ["React.js", "JWT", "Role-based Auth"],
+    },
+    {
+      title: "Accuride",
+      period: "10/2024 - 05/2025",
+      description:
+        "E-commerce platform for global manufacturer with detailed product catalog and technical resources.",
+      highlights: [
+        "Implemented SSR and ISR using Next.js",
+        "Enhanced UX for 500+ products",
+        "Boosted performance and SEO",
+      ],
+      tags: ["Next.js", "SSR", "ISR", "E-commerce"],
+    },
+    {
+      title: "Deeptrail",
+      period: "07/2023 - 09/2024",
+      description:
+        "AI-driven security platform for managing and investigating security alerts efficiently.",
+      highlights: [
+        "Built UI for non-technical users",
+        "Real-time alert processing",
+        "Maintained security and scalability standards",
+      ],
+      tags: ["React", "AI Integration", "Security"],
+    },
+    {
+      title: "eZHealth",
+      period: "01/2021 - 06/2023",
+      description:
+        "Healthcare solutions platform focusing on vaccination management with multiple user roles.",
+      highlights: [
+        "Integrated real-time payment gateways",
+        "Created Covid-19 vaccine module",
+        "Multi-role user management",
+      ],
+      tags: ["React", "Payment Gateway", "Healthcare"],
+    },
+  ];
+
+  const experience = [
+    {
+      title: "Software Engineer",
+      company: "Indus Net Technologies Limited",
+      period: "10/2024 - Present",
+      location: "Kolkata",
+      description:
+        "Developing scalable web applications with React, Next.js, and Node.js. Building responsive UI with Tailwind CSS and Shadcn UI.",
+    },
+    {
+      title: "Program Analyst",
+      company: "CBNITS India Pvt Ltd",
+      period: "03/2021 - 09/2024",
+      location: "Kolkata",
+      description:
+        "Translated wireframes into responsive interfaces. Built dynamic components with React.js and managed state with Redux and Zustand.",
+    },
+  ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-
-      <div className="bg-cover w-[100vw] xl:grayscale xl:hover:grayscale-0 xl:bg-cover xl:w-full xl:h-[100vh]"
-      style={{backgroundImage: "url('/portfolioImage1.jpeg')", backgroundRepeat: "no-repeat"}}
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      {/* Navigation */}
+      <nav
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-slate-900/95 backdrop-blur-sm shadow-lg"
+            : "bg-transparent"
+        }`}
       >
-
-        <p onClick={onButtonClick} className="animate-bounce cursor-pointer ml-auto w-fit mr-4 mt-4 font-semibold">Download Me!</p>
-
-        <div className=" pl-[1rem] md:pl-[3rem] sm:pt-[4rem] lg:pl-20 xl:pt-[7rem] ">
-        <div className="text-white mt-[3rem] text-3xl md:text-5xl md:mt-[6rem] lg:text-lgBanner lg:mt-[7rem] xl:text-large  ">
-          <div className="font-Montserrat" onClick={()=>checkReactGA()}>ANANYA</div>
-          <div className="font-Montserrat">BANDYOPADHYAY</div>
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="hidden md:flex space-x-8">
+            {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="hover:text-cyan-400 transition-colors duration-300"
+              >
+                {item}
+              </a>
+            ))}
+          </div>
         </div>
-        <div className="text-xl mb-[3rem] md:mb-[6rem] lg:text-3xl lg:mb-[8rem] xl:mb-52 font-ubuntu text-primary-yellow" style={{animation: professionStyle}}> {professionData} </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section
+        id="home"
+        className="min-h-screen flex items-center justify-center px-6 pt-20"
+      >
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="mb-6">
+            <h1 className="text-6xl md:text-8xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient">
+              ANANYA
+            </h1>
+            <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-400 bg-clip-text text-transparent animate-gradient">
+              BANDYOPADHYAY
+            </h1>
+          </div>
+          <div className="h-12 mb-8">
+            <p className="text-2xl md:text-3xl text-cyan-400 font-light transition-opacity duration-500">
+              {roles[currentRole]}
+            </p>
+          </div>
+          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+            4.5 years of expertise in building scalable, high-performance web
+            applications
+          </p>
+          <div className="flex justify-center space-x-4">
+            <a
+              href="#contact"
+              className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105"
+            >
+              Get In Touch
+            </a>
+            <button
+              onClick={onButtonClick}
+              className="px-8 py-3 border border-cyan-500 rounded-full hover:bg-cyan-500/10 transition-all duration-300 flex items-center space-x-2"
+            >
+              <Download size={20} />
+              <span>Resume</span>
+            </button>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="w-[80%] md:w-[60%] py-[3rem] md:py-[6rem] lg:w-[50%] xl:w-[40%] mx-auto ">
-          <div className='text-center' >
-          MEET THE DEVELOPER
-          </div>
-          <div className='flex justify-center mb-[2rem]'>
-          <TfiLineDotted className='text-[3rem] mx-[1rem]'/><BsChevronDown className='mt-[1rem]'/><TfiLineDotted className='text-[3rem] mx-[1rem]'/>
-          </div>
-          <div className='text-[14px] md:text-[1rem]'>
-          Hi there, I'm Ananya. I'm a web developer who loves creating websites that work flawlessly. 
-          But that's not all I do! I'm also an aspiring artist, always trying out new ways to express myself, 
-          and a passionate photographer who captures the beauty of the world.
-          Crafting Code, Brushing Art, and Capturing Moments: A Developer's Journey Through Pixels and Pixels.
-          </div>
-      </div>
-
-      <div className="w-full py-[3rem] md:py-[6rem] mx-auto bg-secondary-blue text-white">
-        <div className='text-center'>
-        Academic and Professional Journey
-          </div>
-          <div className='flex justify-center mb-[1rem] lg:mb-[2rem]'>
-          <TfiLineDotted className='text-[3rem] mx-[1rem]'/><BsChevronDown className='mt-[1rem]'/><TfiLineDotted className='text-[3rem] mx-[1rem]'/>
-          </div>
-        {width < 1024 ?
-          <div className="w-[80%] mx-auto border-l-[1.5px] border-white">
-
-             <svg className='h-[25px] w-[25px] ml-[-.7rem] scale-150'>
-                <circle cx="12" cy="12" r="10" fill="#FFFF" />
-              </svg> 
-              <div className='ml-[1rem] py-[1.5rem]'>
-                <p>Bachelor of Computer Application</p>
-                <p className='mb-[1rem] text-[14px]'>2017 - 2020</p>
-                <p className='font-semibold'>Techno India University</p>
-                <p className='text-[14px]'>During my BCA program, I gained a understanding of computer fundamentals, 
-                programming languages, database management, and software development methodologies. I actively 
-                engaged in coursework that emphasized problem-solving and critical thinking, which honed my analytical 
-                and programming skills. Additionally, I collaborated on various group projects, which enhanced 
-                my teamwork and project management abilities.</p>
-              </div>
-
-              <svg className='h-[25px] w-[25px] ml-[-.7rem] scale-150'>
-                <circle cx="12" cy="12" r="10" fill="#FFFF" />
-              </svg> 
-              <div className='ml-[1rem] py-[1.5rem]'>
-                <p>Master of Computer Application</p>
-                <p className='mb-[1rem] text-[14px]'>2021 - 2024</p>
-                <p className='font-semibold'>Indira Gandhi National Open University (IGNOU)</p>
-                <p className='text-[14px]'>Pursuing distance advanced degree allowed me to deepen my knowledge and expertise in the field of 
-                computer science and information technology. During my MCA program, I focused on specialized 
-                coursework in areas such as software development, database management, artificial intelligence, 
-                and cybersecurity. My academic journey also included hands-on experience through challenging projects and research work.</p>
-              </div>
-              
-
-              <svg className='h-[25px] w-[25px] ml-[-.7rem] scale-150'>
-                <circle cx="12" cy="12" r="10" fill="#FFFF" />
-              </svg> 
-              <div className='ml-[1rem] py-[1.5rem]'>
-                <p>Web Developer</p>
-                <p className='mb-[1rem] text-[14px]'>2021 - Present</p>
-                <p className='font-semibold'>CBNITS</p>
-                <p className='text-[14px]'>Throughout my professional career, I have had the privilege of working of four 
-                distinct web projects, each offering unique challenges and opportunities for growth. 
-                These experiences have not only honed my technical skills but also enriched my team-work abilities. 
-                I've expertise in front-end development, responsive design, and user experience optimization. 
-                These projects have encompassed e-commerce and healthcare industries.</p>
-              </div>
-          </div>
-          : 
-          <div className="w-[80%] mx-auto flex flex-wrap justify-between item-center">
-
-            <div className='w-[33%]'>
-              <div className='pl-[2rem] mb-[1rem] lg:h-[3rem]  xl:h-auto'>Bachelor of Computer Application</div>
-              <div className='pl-[2rem]'>2017 - 2020</div>
-              <div className='flex'>
-              <svg className='h-[40px] w-[40px]'>
-                <circle cx="20" cy="20" r="17" fill="#FFFF" />
-              </svg> 
-              <hr className='bg-primary-blue w-full self-center h-[2px]'/>
-              </div>
-              <div className='pl-[2rem] mb-[1rem] lg:h-[3rem] xl:h-auto font-semibold'>Techno India University</div>
-              <div className='pl-[2rem] lg:text-[0.9rem]  xl:text-[1rem]'>
-                During my BCA program, I gained a understanding of computer fundamentals, 
-                programming languages, database management, and software development methodologies. I actively 
-                engaged in coursework that emphasized problem-solving and critical thinking, which honed my analytical 
-                and programming skills. Additionally, I collaborated on various group projects, which enhanced 
-                my teamwork and project management abilities.
+      {/* About Section */}
+      <section id="about" className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            About Me
+          </h2>
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <p className="text-lg text-slate-300 leading-relaxed">
+                I'm a Full Stack Developer with 4.5 years of experience
+                specializing in React, Next.js, and Node.js. I've successfully
+                developed and optimized multiple high-traffic web applications
+                across e-commerce, healthcare, and security domains.
+              </p>
+              <p className="text-lg text-slate-300 leading-relaxed">
+                Passionate about creating efficient, user-friendly interfaces
+                with a focus on performance, security, and seamless user
+                experiences. Proficient in Jest for unit testing and dedicated
+                to building scalable, enterprise-grade SaaS applications.
+              </p>
+              <div className="grid grid-cols-2 gap-4 pt-6">
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                  <Award className="text-cyan-400 mb-2" size={32} />
+                  <h3 className="font-semibold mb-1">30% Performance</h3>
+                  <p className="text-sm text-slate-400">Boost via SSR/ISR</p>
+                </div>
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                  <Award className="text-cyan-400 mb-2" size={32} />
+                  <h3 className="font-semibold mb-1">50% Faster</h3>
+                  <p className="text-sm text-slate-400">Deployment Time</p>
+                </div>
               </div>
             </div>
-
-            <div className='group w-[33%]'>
-              <div className='pl-[2rem] mb-[1rem] lg:h-[3rem]  xl:h-auto'>Master of Computer Application</div>
-              <div className='pl-[2rem]'>2021 - 2024</div>
-              <div className='flex'>
-              <svg className='h-[40px] w-[40px] z-20'>
-                <circle cx="20" cy="20" r="17" fill="#FFFF" />
-              </svg> 
-              <hr className='bg-primary-blue w-full self-center h-[2px]'/>
-              </div>
-              <div className='pl-[2rem] mb-[1rem] lg:h-[3rem] xl:h-auto font-semibold'>Indira Gandhi National Open University (IGNOU)</div>
-              <div className='pl-[2rem] lg:text-[0.9rem]  xl:text-[1rem]'>
-                Pursuing distance advanced degree allowed me to deepen my knowledge and expertise in the field of 
-                computer science and information technology. During my MCA program, I focused on specialized 
-                coursework in areas such as software development, database management, artificial intelligence, 
-                and cybersecurity. My academic journey also included hands-on experience through challenging projects and research work.
-              </div>
-            </div>
-            <div className=' w-[33%]'>
-              <div className='pl-[2rem] mb-[1rem] lg:h-[3rem] xl:h-auto'>Web Developer</div>
-              <div className='pl-[2rem]'>2021 - Present</div>
-              <div className='flex w-full scale-105'>
-              <svg className='h-[40px] w-[40px] z-10'>
-                <circle cx="20" cy="20" r="17" fill="#FFFF" />
-              </svg> 
-              <hr className='bg-primary-blue w-full self-center h-[2px] z-1'/>
-              </div>
-              <div className='pl-[2rem] mb-[1rem] lg:h-[3rem] xl:h-auto font-semibold'>CBNITS</div>
-              <div className='pl-[2rem] lg:text-[0.9rem]  xl:text-[1rem]'>
-                Throughout my professional career, I have had the privilege of working of four 
-                distinct web projects, each offering unique challenges and opportunities for growth. 
-                These experiences have not only honed my technical skills but also enriched my team-work abilities. 
-                I've expertise in front-end development, responsive design, and user experience optimization. 
-                These projects have encompassed e-commerce and healthcare industries
+            <div className="space-y-6">
+              <h3 className="text-2xl font-semibold mb-4 flex items-center">
+                <Briefcase className="mr-3 text-cyan-400" />
+                Experience
+              </h3>
+              {experience.map((exp, index) => (
+                <div
+                  key={index}
+                  className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
+                >
+                  <h4 className="text-xl font-semibold text-cyan-400">
+                    {exp.title}
+                  </h4>
+                  <p className="text-slate-300 font-medium">{exp.company}</p>
+                  <p className="text-sm text-slate-400 mb-2">
+                    {exp.period} • {exp.location}
+                  </p>
+                  <p className="text-slate-300 text-sm">{exp.description}</p>
+                </div>
+              ))}
+              <h3 className="text-2xl font-semibold mb-4 flex items-center pt-6">
+                <GraduationCap className="mr-3 text-cyan-400" />
+                Education
+              </h3>
+              <div className="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
+                <h4 className="text-xl font-semibold text-cyan-400">
+                  Master of Computer Application
+                </h4>
+                <p className="text-slate-300 font-medium">IGNOU</p>
+                <p className="text-sm text-slate-400">06/2021 - 06/2024</p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" className="py-20 px-6 bg-slate-800/30">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            Technical Skills
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {Object.entries(skills).map(([category, skillList]) => (
+              <div
+                key={category}
+                className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
+              >
+                <h3 className="text-2xl font-semibold mb-6 capitalize text-cyan-400 flex items-center">
+                  <Code className="mr-2" size={24} />
+                  {category}
+                </h3>
+                <div className="space-y-4">
+                  {skillList.map((skill) => (
+                    <div key={skill.name}>
+                      <div className="flex justify-between mb-2">
+                        <span className="text-slate-300">{skill.name}</span>
+                        <span className="text-cyan-400">{skill.level}%</span>
+                      </div>
+                      <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-1000"
+                          style={{ width: `${skill.level}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            Featured Projects
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 hover:transform hover:scale-105"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-2xl font-semibold text-cyan-400">
+                    {project.title}
+                  </h3>
+                  <ExternalLink
+                    className="text-slate-400 hover:text-cyan-400 cursor-pointer"
+                    size={20}
+                  />
+                </div>
+                <p className="text-sm text-slate-400 mb-4">{project.period}</p>
+                <p className="text-slate-300 mb-4">{project.description}</p>
+                <ul className="space-y-2 mb-4">
+                  {project.highlights.map((highlight, i) => (
+                    <li
+                      key={i}
+                      className="text-sm text-slate-400 flex items-start"
+                    >
+                      <span className="text-cyan-400 mr-2">→</span>
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full text-sm border border-cyan-500/20"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-6 bg-slate-800/30">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            Let's Connect
+          </h2>
+          <p className="text-xl text-slate-300 mb-12">
+            I'm always open to discussing new projects and opportunities
+          </p>
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <a
+              href="mailto:ani99banerjee@gmail.com"
+              className="flex items-center justify-center space-x-3 bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 hover:transform hover:scale-105"
+            >
+              <Mail className="text-cyan-400" size={24} />
+              <span>ani99banerjee@gmail.com</span>
+            </a>
+            <a
+              href="tel:+917278964229"
+              className="flex items-center justify-center space-x-3 bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 hover:transform hover:scale-105"
+            >
+              <Phone className="text-cyan-400" size={24} />
+              <span>+91 7278964229</span>
+            </a>
+            <a
+              href="https://github.com/ananyabandyopadhyay"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center space-x-3 bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 hover:transform hover:scale-105"
+            >
+              <Github className="text-cyan-400" size={24} />
+              <span>GitHub</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ananyabandyopadhyay/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center space-x-3 bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 hover:transform hover:scale-105"
+            >
+              <Linkedin className="text-cyan-400" size={24} />
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-6 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto text-center text-slate-400">
+          <p>© 2025 Ananya Bandyopadhyay. Built with Next.js & Tailwind CSS</p>
+        </div>
+      </footer>
+
+      <style jsx>{`
+        @keyframes gradient {
+          0%,
+          100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
         }
-      </div>
-
-      <div className="w-[80%] py-[3rem] md:py-[6rem] mx-auto bg-white text-primary-blue xl:grayscale xl:hover:grayscale-0">
-          <div className='text-center'>
-          Technical Proficiency
-          </div>
-          <div className='flex justify-center mb-[2rem]'>
-          <TfiLineDotted className='text-[3rem] mx-[1rem]'/><BsChevronDown className='mt-[1rem]'/><TfiLineDotted className='text-[3rem] mx-[1rem]'/>
-          </div>
-
-          <div className='flex flex-wrap justify-between item-center'>
-
-            <div className="group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue">
-              <div className='p-[2rem] rounded-full bg-white text-center w-[140px] h-[140px]  md:w-[130px] md:h-[130px] lg:w-[130px] lg:h-[130px] m-auto' 
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 90%, #a1bbc4 0)"}}>
-              <TbBrandHtml5 className={`text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out  `}/>
-              <div>HTML</div><div>90%</div>
-              </div>
-              <div>
-              </div>
-            </div>
-
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]  rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 60%, #a1bbc4 0)"}}>
-              <TbBrandTailwind className='text-[2rem] m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>Tailwind</div><div>60%</div>
-              </div>
-            </div>
-            
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 80%, #a1bbc4 0)"}}>
-              <TbBrandBootstrap className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>Bootstrap</div><div>80%</div>
-              </div>
-            </div>
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 80%, #a1bbc4 0)"}}>
-              <SiAntdesign className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>Ant D</div><div>80%</div>
-              </div>
-            </div>
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 75%, #a1bbc4 0)"}}>
-              <TbBrandReact className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>React</div><div>75%</div>
-              </div>
-            </div>
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 75%, #a1bbc4 0)"}}>
-              <TbBrandReact className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>Redux</div><div>60%</div>
-              </div>
-            </div>
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 70%, #a1bbc4 0)"}}>
-              <TbBrandNextjs className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>Next.js</div><div>70%</div>
-              </div>
-            </div>
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 80%, #a1bbc4 0)"}}>
-              <TbBrandJavascript className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>Javascript</div><div>80%</div>
-              </div>
-            </div>
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 80%, #a1bbc4 0)"}}>
-              <TbBrandJavascript className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>Typescript</div><div>80%</div>
-              </div>
-            </div>
-
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 50%, #a1bbc4 0)"}}>
-              <TbDatabase className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>GraphQL</div><div>50%</div>
-              </div>
-            </div>
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 50%, #a1bbc4 0)"}}>
-              <TbDatabase className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>Rest API</div><div>50%</div>
-              </div>
-            </div>
-
-
-            <div className={`group p-[1rem] md:p-[3rem] w-[50%] md:w-[25%] text-center text-primary-gray xl:hover:text-primary-blue`}>
-              <div className='p-[2rem]   rounded-full bg-white text-center w-[140px] h-[140px] md:w-[130px] md:h-[130px]  m-auto'
-              style={{  background: "radial-gradient(closest-side, white 80%, transparent 81% 100%), conic-gradient(#7ea1ac 50%, #a1bbc4 0)"}}>
-              <TbDatabase className='text-[2rem]  m-auto duration-300 xl:group-hover:-translate-y-1 xl:group-hover:scale-110 transition ease-in-out'/>
-              <div>SQL</div><div>50%</div>
-              </div>
-            </div>
-            
-          </div>
-          
-      </div>
-
-      <div  className="w-full py-[3rem] md:py-[6rem]  mx-auto bg-secondary-blue text-white">
-          <div className='text-center'>
-          Find me on:
-          </div>
-          <div className='flex justify-center mb-[1rem] lg:mb-[2rem]'>
-          <TfiLineDotted className='text-[3rem] mx-[1rem]'/><BsChevronDown className='mt-[1rem]'/><TfiLineDotted className='text-[3rem] mx-[1rem]'/>
-          </div>
-
-          <div className='block flex-col mx-auto max-w-fit '>
-            <div className="my-2 flex">
-            <FaGithub className="mr-2 item-center my-auto"/>
-            <p>https://github.com/ananyabandyopadhyay</p>
-            </div>
-
-            <div className="my-2 flex">
-            <FaLinkedin className="mr-2 item-center my-auto"/>
-            <p>https://www.linkedin.com/in/ananyabandyopadhyay/</p>
-            </div>
-
-            <div className="my-2 flex">
-            <IoIosCall className="mr-2 item-center my-auto"/>
-            <p>7278964229</p>
-            </div>
-
-            <div className="my-2 flex">
-            <IoIosMail className="mr-2 item-center my-auto"/>
-            <p>ani99banerjee@gmail.com</p>
-            </div>
-          
-          </div>
-          
-      </div>
-
-
-    </main>
-  )
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 3s ease infinite;
+        }
+      `}</style>
+    </div>
+  );
 }
